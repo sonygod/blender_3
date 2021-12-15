@@ -1343,13 +1343,13 @@ static PyObject *pyrna_enum_to_py(PointerRNA *ptr, PropertyRNA *prop, int val)
         const char *ptr_name = RNA_struct_name_get_alloc(ptr, NULL, 0, NULL);
 
         /* Prefer not to fail silently in case of API errors, maybe disable it later. */
-        CLOG_WARN(BPY_LOG_RNA,
-                  "current value '%d' "
-                  "matches no enum in '%s', '%s', '%s'",
-                  val,
-                  RNA_struct_identifier(ptr->type),
-                  ptr_name,
-                  RNA_property_identifier(prop));
+        // CLOG_WARN(BPY_LOG_RNA,
+        //           "current value '%d' "
+        //           "matches no enum in '%s', '%s', '%s'",
+        //           val,
+        //           RNA_struct_identifier(ptr->type),
+        //           ptr_name,
+        //           RNA_property_identifier(prop));
 
 #if 0 /* Gives Python decoding errors while generating docs :( */
         char error_str[256];

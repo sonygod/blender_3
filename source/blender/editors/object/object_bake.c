@@ -621,6 +621,7 @@ static int objects_bake_render_invoke(bContext *C, wmOperator *op, const wmEvent
 
 static int bake_image_exec(bContext *C, wmOperator *op)
 {
+  printf("here start baking");
   Scene *scene = CTX_data_scene(C);
   int result = OPERATOR_CANCELLED;
 

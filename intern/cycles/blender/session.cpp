@@ -340,6 +340,7 @@ void BlenderSession::stamp_view_layer_metadata(Scene *scene, const string &view_
 
 void BlenderSession::render(BL::Depsgraph &b_depsgraph_)
 {
+  printf("start render here");
   b_depsgraph = b_depsgraph_;
 
   if (session->progress.get_cancel()) {
@@ -447,6 +448,7 @@ void BlenderSession::render(BL::Depsgraph &b_depsgraph_)
       printf("Render statistics:\n%s\n", stats.full_report().c_str());
     }
 
+    printf("render finish");
     if (session->progress.get_cancel())
       break;
   }
@@ -594,6 +596,7 @@ void BlenderSession::bake(BL::Depsgraph &b_depsgraph_,
                           const int bake_width,
                           const int bake_height)
 {
+  printf("start baking ---------------");
   b_depsgraph = b_depsgraph_;
 
   /* Initialize bake manager, before we load the baking kernels. */
@@ -634,6 +637,7 @@ void BlenderSession::bake(BL::Depsgraph &b_depsgraph_,
 
     /* Load built-in images from Blender. */
     builtin_images_load();
+    printf("baking image finish");
   }
 
   /* Object might have been disabled for rendering or excluded in some
@@ -870,6 +874,11 @@ void BlenderSession::update_bake_progress()
   double progress = session->progress.get_progress();
 
   if (progress != last_progress) {
+
+    if (progress>0.9)
+    {
+      printf("finish?now?");
+    }
     b_engine.update_progress((float)progress);
     last_progress = progress;
   }
@@ -917,13 +926,15 @@ void BlenderSession::update_status_progress()
    * and remaining time up-to-date. For headless rendering, only report when something
    * significant changes to keep the console output readable. */
   if (status != last_status || (!headless && (current_time - last_status_time) > 1.0)) {
-    b_engine.update_stats("", (timestatus + scene_status + status).c_str());
+    b_engine.update_stats("fucking ", (timestatus + scene_status + status).c_str());
     b_engine.update_memory_stats(mem_used, mem_peak);
     last_status = status;
     last_status_time = current_time;
   }
   if (progress != last_progress) {
     b_engine.update_progress((float)progress);
+
+    printf("render progress =%g \n", (float)progress);
     last_progress = progress;
   }
 

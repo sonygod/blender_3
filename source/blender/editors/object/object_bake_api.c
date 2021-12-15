@@ -21,6 +21,7 @@
  * \ingroup edobj
  */
 
+#include <string.h>
 #include "MEM_guardedalloc.h"
 
 #include "DNA_material_types.h"
@@ -132,6 +133,11 @@ static void bake_progress_update(void *bjv, float progress)
 
   if (bj->progress && *bj->progress != progress) {
     *bj->progress = progress;
+    //string_printf("baking progress %d/", progress);
+
+   // printf_s("baking progress %/d \n", progress);
+
+    printf("baking progress %g \n", progress);
 
     /* make jobs timer to send notifier */
     *(bj->do_update) = true;
@@ -794,6 +800,8 @@ static bool bake_targets_output_internal(const BakeAPIRender *bkr,
       all_ok = false;
     }
     else {
+
+      printf("baking image finish here");
       BKE_report(
           reports, RPT_INFO, "Baking map saved to internal image, save it externally or pack it");
     }
@@ -1779,7 +1787,7 @@ static void bake_startjob(void *bkv, short *UNUSED(stop), short *do_update, floa
       }
     }
   }
-
+  printf("backing finish :)");
   RE_SetReports(bkr->render, NULL);
 }
 
